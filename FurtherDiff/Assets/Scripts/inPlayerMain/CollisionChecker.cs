@@ -5,7 +5,7 @@ using UnityEngine;
 public class CollisionChecker : MonoBehaviour
 {
     [SerializeField]
-    private GameObject Fly , OnGround;
+    private GameObject AFlight , OnGround;
 
 
 
@@ -47,7 +47,7 @@ public class CollisionChecker : MonoBehaviour
     }
 
     private void SetFly()
-    {   Fly.SetActive(true);
+    {   AFlight.SetActive(true);
         OnGround.SetActive(false);
         
 
@@ -56,7 +56,7 @@ public class CollisionChecker : MonoBehaviour
     private void SetGround()
     {
         OnGround.SetActive(true);
-        Fly.SetActive(false);
+       AFlight.SetActive(false);
 
     }
 

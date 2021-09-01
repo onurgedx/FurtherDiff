@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
 
     List<string> PressedButtons = new List<string>() ;
 
+    List<string> UnPressedButtons = new List<string>();
     
 
     // Start is called before the first frame update
@@ -46,42 +47,64 @@ public class Player : MonoBehaviour
    
     private void CheckControllerSibilings()
     {
+
+
+        //
         CleaningList(PressedButtons); // Listeyi temizliyor 
 
-        PressedListUpdate(); // aktif olanlari PressedButtons listesine ekliyor
+        CleaningList(UnPressedButtons);//Basilmayanlar listesini temizliyor.
+        //
+
+
+
+
+        UnAndPressedListUpdate(); // aktif olanlari PressedButtons listesine ekliyor
+                                  // pasif olanlarý UnPressedButtons listesine ekliyor
+
+
+
+
 
 
         // EGER iki TUS BASILDIGINDA FARKLI BIR SEY OLSUN ISTIYORSAK
         // ComparePresseds(List<string> listPressed) KULLANIRIZ !!!!
         // ICERI YAZILANLAR AYNI ANDA BASILMIS ISE TRUE DONDURUYOR
+        /*
+        if(ComparePresseds(new List<string> { "W", "A", "S", "D" }))
+        {
+
+        }
+        */
 
 
-        LaunchListed(); // listedekileri calistiriyor
+
+        LaunchListed(PressedButtons); // listedekileri calistiriyor
+        LaunchListed(UnPressedButtons); // Basilmamislar icin ayri bir fonk gonderiyor
 
     }
 
-    
+
 
     // bu yorabilir
     private void RefreshPComponent()
     {
         Pcomponent = player.transform.GetChild(0).gameObject.GetComponent<PlayerPostaci>();
-
+        Debug.Log(Pcomponent.name);
     }
     
-    private void LaunchListed() 
+    private void LaunchListed( List<string> buttons) 
     {
         RefreshPComponent();
 
 
-        foreach (string name in PressedButtons)
+        foreach (string name in buttons)
         {
             LaunchOrder(name);
 
         }
     }
 
-    private void PressedListUpdate()
+    private void UnAndPressedListUpdate()
     {
         for (int i = 0; i < controller.transform.childCount; i++)
         {
@@ -99,6 +122,8 @@ public class Player : MonoBehaviour
             }
             else
             {
+                AddingToList(name+"NO", UnPressedButtons); //Unpressed Button is adding to list name UnpressedButtons
+                
 
             }
 

@@ -13,18 +13,34 @@ public  class PlayerAflight :  PlayerPostaci
     }
 
 
+    private void OpenGlider()
+    {
+        animator.SetFloat("time", ClampIt01(animator.GetFloat("time") + 4*Time.deltaTime));
 
+
+    }
+
+    private void CloseGlider()
+    {
+        animator.SetFloat("time", ClampIt01(animator.GetFloat("time") -4*Time.deltaTime));
+
+    }
 
     public override void W()
     {
-        animator.SetFloat("time", animator.GetFloat("time") + Time.deltaTime);
+        
+        
 
         Debug.Log("ww");
     }
 
+
+
+
     public override void S()
     {
-        animator.SetFloat("time", animator.GetFloat("time") - Time.deltaTime);
+        
+        
 
         Debug.Log("ss");
     }
@@ -41,7 +57,20 @@ public  class PlayerAflight :  PlayerPostaci
 
     public override void Space()
     {
-        Debug.Log("space");
+
+        OpenGlider();
+
+
+
+    }
+
+    public override void SpaceNO()
+    {
+        CloseGlider();
+
+        // basedekiler de olsun baska bir sey de olsun diye bu kullanýlabilir !!!
+        //base.SpaceNO();
+
     }
 
     public override void Shift()
