@@ -17,6 +17,9 @@ public class Player : MonoBehaviour
     private PlayerPostaci Pcomponent;
 
 
+    public List<string> atLeastOneKey;
+
+
     List<string> PressedButtons = new List<string>() ;
 
     List<string> UnPressedButtons = new List<string>();
@@ -62,7 +65,7 @@ public class Player : MonoBehaviour
                                   // pasif olanlarý UnPressedButtons listesine ekliyor
 
 
-
+        LeastOneGivenKey(atLeastOneKey); 
 
 
 
@@ -78,8 +81,81 @@ public class Player : MonoBehaviour
 
 
 
+
         LaunchListed(PressedButtons); // listedekileri calistiriyor
         LaunchListed(UnPressedButtons); // Basilmamislar icin ayri bir fonk gonderiyor
+
+
+       
+
+
+    }
+
+
+    private void LeastOneGivenKey(List<string> listWhole)
+    {
+        foreach (string listName in listWhole)
+        {
+
+            if (IsAnyFromThese(listName))
+            {
+
+                AddingToList(listName + "atLeastOne", PressedButtons);
+
+
+
+            }
+            else
+            {
+                AddingToList(listName+"not", UnPressedButtons);
+            }
+        }
+    
+
+    }
+    
+
+    
+
+    private bool IsAnyFromThese(string listPressed)
+    {
+
+       
+        foreach (char str in listPressed)
+        {
+             
+
+            if(PressedButtons.Contains(str.ToString()))
+            {
+                return true;
+            }
+
+            
+
+        }
+        return false;
+
+
+    }
+
+
+    private bool ComparePresseds(List<string> listPressed)
+    {
+        foreach (string str in listPressed)
+        {
+            bool a = PressedButtons.Contains(str);
+
+            if (!a)
+            {
+                return a;
+
+
+            }
+
+        }
+
+        return true;
+
 
     }
 
@@ -89,7 +165,7 @@ public class Player : MonoBehaviour
     private void RefreshPComponent()
     {
         Pcomponent = player.transform.GetChild(0).gameObject.GetComponent<PlayerPostaci>();
-        Debug.Log(Pcomponent.name);
+       // Debug.Log(Pcomponent.name);
     }
     
     private void LaunchListed( List<string> buttons) 
@@ -191,24 +267,6 @@ public class Player : MonoBehaviour
     }
 
 
-    private bool ComparePresseds(List<string> listPressed)
-    {
-        foreach(string str in listPressed)
-        {
-            bool a = PressedButtons.Contains(str);
-
-            if (!a)
-            {
-                return a;
-
-
-            }
-
-        }
-        
-        return true;
-        
-
-    }
+   
 
 }

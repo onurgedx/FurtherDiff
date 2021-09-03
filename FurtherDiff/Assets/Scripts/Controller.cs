@@ -6,7 +6,7 @@ public class Controller : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject W, A, S, D, Shift, Space, Mouse0, Mouse1;
+    private GameObject W, A, S, D, Shift, Space, Mouse0, Mouse1, V ;
    
 
     // Start is called before the first frame update
@@ -25,6 +25,8 @@ public class Controller : MonoBehaviour
     }
 
 
+    
+
   
 
     private void setOnlineChilds()
@@ -38,12 +40,18 @@ public class Controller : MonoBehaviour
         SetGoAccordingToAxis(KeyCode.Space, Space);
         SetGoAccordingToAxis(KeyCode.Mouse0, Mouse0);//Left click
         SetGoAccordingToAxis(KeyCode.Mouse1, Mouse1);//Right click
+        SetGoAccordingToAxis(KeyCode.V, V);
+        
 
         //KeyCode.Mouse0
 
 
 
     }
+
+   
+    
+
 
     private void SetGoAccordingToAxis( KeyCode KCode , GameObject Go )
     {

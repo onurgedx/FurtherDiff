@@ -5,33 +5,41 @@ using UnityEngine;
 public  class PlayerAflight :  PlayerPostaci
 {
 
-
+    public float speed = 30f;
+    public float spinSpeed = 30f;
+    
 
     private void Update()
     {
+
+        Gravity();
+        
+        
+
         
     }
 
+    
 
-    private void OpenGlider()
+
+
+    public override void WASDatLeastOne()
     {
-        animator.SetFloat("time", ClampIt01(animator.GetFloat("time") + 4*Time.deltaTime));
+        //TurnAndGo(speed,1,1,1);
 
+       
 
     }
 
-    private void CloseGlider()
-    {
-        animator.SetFloat("time", ClampIt01(animator.GetFloat("time") -4*Time.deltaTime));
 
-    }
 
     public override void W()
     {
         
-        
 
-        Debug.Log("ww");
+          //  setUpViewPoint();
+
+
     }
 
 
@@ -39,27 +47,28 @@ public  class PlayerAflight :  PlayerPostaci
 
     public override void S()
     {
+        //setDownViewPoint();
+       
         
-        
-
-        Debug.Log("ss");
     }
 
     public override void A()
     {
-        Debug.Log("a");
+        setLeftViewPoint(10);
     }
 
     public override void D()
     {
-        Debug.Log("d");
+        setRightViewPoint(10);
     }
 
     public override void Space()
     {
-
+        //ResetWheelSpin(4, 90);
+        
         OpenGlider();
-
+        //TurnAndGo(speed);
+        //Suzul();
 
 
     }
@@ -68,6 +77,8 @@ public  class PlayerAflight :  PlayerPostaci
     {
         CloseGlider();
 
+        SpinAsWheel(spinSpeed);
+
         // basedekiler de olsun baska bir sey de olsun diye bu kullanýlabilir !!!
         //base.SpaceNO();
 
@@ -75,9 +86,16 @@ public  class PlayerAflight :  PlayerPostaci
 
     public override void Shift()
     {
-        Debug.Log("shift");
+
+        animator.SetBool("spin", true);
     }
 
+    public override void ShiftNO()
+    {
+        animator.SetBool("spin", false);
+
+        
+    }
 
 
 

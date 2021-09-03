@@ -7,28 +7,46 @@ public class PlayerOnGround : PlayerPostaci
 
 
 
-
-
+    public float speed = 30f;
+    public float spinSpeed = 10f;
+    public float jumpPower = 800f;
 
     public override void Space()
     {
 
-        Jump();
+        Jump(jumpPower);
 
         
         
 
     }
+    public override void SpaceNO()
+    {
+        CloseGlider();
+    }
+
+
+    public override void WASDatLeastOne()
+    {
+        TurnAndGo(speed);
+
+        SpinAsWheel(spinSpeed);
+
+    }
+    public override void WASDnot()
+    {
+        SmoothRotateThenResetWS();
+    }
+
+    
 
     public override void W()
     {
-
+        
         setForwardViewPoint();
 
 
-        TurnAndGo(30f);
-     
-       
+        
 
 
 
@@ -43,20 +61,23 @@ public class PlayerOnGround : PlayerPostaci
     public override void A()
     {
         setLeftViewPoint();
-        TurnAndGo(30f);
+        
     }
     
     public override void D()
     {
         setRightViewPoint();
-        TurnAndGo(30f);
+        
     }
 
 
     public override void S()
     {
         setForwardViewPoint(-1);
-        TurnAndGo(30f);
+        
     }
+
+    
+
 
 }

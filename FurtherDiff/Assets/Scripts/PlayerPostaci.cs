@@ -5,20 +5,17 @@ using UnityEngine;
 public class PlayerPostaci : PlayerActs
 {
 
-    public Animator animator;
+    
 
     
 
 
     
+    
 
-    public virtual float ClampIt01(float val)
-    {
-        // girilen sayiyi 0 ile 1 arasýndan cikmamasýný saglar
+    
+   
 
-        return Mathf.Clamp01(val);
-
-    }
     public virtual void Mouse0()
     {
         Debug.Log("Mouse0");
@@ -26,6 +23,7 @@ public class PlayerPostaci : PlayerActs
 
 
     }
+
     public virtual void Mouse0NO()
     {
 
@@ -43,6 +41,27 @@ public class PlayerPostaci : PlayerActs
     {
 
 
+
+    }
+
+
+    public virtual void MovementExist()
+    {
+
+        
+        
+
+
+    }
+    public virtual void WASDnot()
+    {
+
+    }
+
+
+    public virtual void WASDatLeastOne()
+    {
+        
 
     }
 
@@ -105,6 +124,14 @@ public class PlayerPostaci : PlayerActs
 
     }
 
+    public virtual void V()
+    {
+
+    }
+    public virtual void VNO()
+    {
+
+    }
 
 
 }

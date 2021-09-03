@@ -12,6 +12,8 @@ public class MouseMovementController : MonoBehaviour
     public float SensitivityX;
     public float SensitivityY;
 
+    public float scrollScale = 0.2f;
+
 
 
 
@@ -30,9 +32,17 @@ public class MouseMovementController : MonoBehaviour
         mouseRefresh();
 
 
+       
+
+
 
 
     }
+
+
+
+    
+    
 
 
 
@@ -45,6 +55,18 @@ public class MouseMovementController : MonoBehaviour
     {
         get { return mouseY; }
     }
+
+
+    public float GetScrolling
+    {
+        get
+        {
+            return Input.mouseScrollDelta[1] * 1.5f;
+        }
+
+    }
+
+
 
 
 

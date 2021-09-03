@@ -66,15 +66,8 @@ public class ViewPoint : MonoBehaviour
         float min = 360 + minDeger;
         bool a = ((( rotX+ MouseY) >=  min) || (rotX + MouseY <= maxDeger));
         
-        /*
-        if(rotX )
-        {
-            float minDis = min - rotX;
-            float maxDis = -rotX +maxDeger;
-            Mathf.Min(minDis , Mathf.Abs(maxDis))
-
-
-        }*/
+        
+        
 
         return a;
 
