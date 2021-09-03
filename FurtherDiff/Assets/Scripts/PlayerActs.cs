@@ -14,11 +14,12 @@ public class PlayerActs : MonoBehaviour
 
     public float GravityScale = 10;
 
+    private Vector3 finalV= Vector3.zero;
 
 
     // Start is called before the first frame update
 
-    private void Start()
+    public virtual void Start()
     {
         //there is only one gameobject has this "Player" tag.
         player = GameObject.FindGameObjectWithTag("Player");
@@ -27,32 +28,69 @@ public class PlayerActs : MonoBehaviour
 
         ViewPoint = GameObject.FindGameObjectWithTag("ViewPoint");
         viewDirection = ViewPoint.transform.forward;
+
+        Debug.Log("sss");
     }
+
+    
+
+    public virtual void Update()
+    {
+        ApplyFinalVector();
+
+
+    }
+
+    public virtual void OnEnable()
+    {
+
+
+    }
+
+    private void ApplyFinalVector()
+    {
+        rg.velocity = FinalVector;
+        
+
+    }
+
+
+
+    public Vector3 FinalVector
+    {
+        get
+        {
+            return finalV;
+
+        }
+
+        set
+        {
+            finalV = value;
+          //   Vector3.ClampMagnitude(finalV, 440);
+        }
+
+    }
+
+
 
     public virtual void GoOnlyForward(float speed = 10f)
     {
-        // rg.velocity = player.transform.forward * speed;
-        //rg.AddForce(player.transform.forward * speed);
+
+
         
-        rg.velocity += player.transform.forward * speed;
-
-        rg.velocity.Normalize();
-
-        //rg.velocity ;
-
-
-        //rg.AddForce(player.transform.forward, ForceMode.Impulse);
     }
     public virtual void Gravity()
     {
-        rg.AddRelativeForce(Vector3.up * (-1) * GravityScale,ForceMode.Acceleration);
+
+        FinalVector += -Vector3.up*10*Time.deltaTime;
 
     }
 
 
     public virtual void Jump(float jumpPower)
     {
-        rg.AddForce(Vector3.up * jumpPower);
+        FinalVector += Vector3.up * jumpPower;
     }
 
 
@@ -64,24 +102,24 @@ public class PlayerActs : MonoBehaviour
 
     }
 
-    public virtual void setRightViewPoint(float b = 1)
+    public virtual void setRightViewPoint()
     {
-        View = ViewPoint.transform.right / b;
+        View = ViewPoint.transform.right ;
     }
 
-    public virtual void setLeftViewPoint(float b = 1)
+    public virtual void setLeftViewPoint()
     {
-        View = -ViewPoint.transform.right / b;
+        View = -ViewPoint.transform.right;
     }
 
-    public virtual void setUpViewPoint(float b = 1)
+    public virtual void setUpViewPoint()
     {
-        View = ViewPoint.transform.up / b;
+        View = ViewPoint.transform.up;
     }
 
-    public virtual void setDownViewPoint(float b = 1)
+    public virtual void setDownViewPoint()
     {
-        View = -ViewPoint.transform.up / b;
+        View = -ViewPoint.transform.up;
     }
 
 
@@ -90,12 +128,9 @@ public class PlayerActs : MonoBehaviour
         get
 
         {
-            //= ViewPoint.transform.forward +ViewPoint.transform.right;
-
+            
             return viewDirection;
-            // Quaternion a =Quaternion.LookRotation(Vector3.Scale(viewDirection,new Vector3(1,0,1)), Vector3.up) ;
-
-            // return a;
+            
         }
         set
         {
@@ -106,22 +141,22 @@ public class PlayerActs : MonoBehaviour
         }
 
     }
-    public Quaternion ViewQ(int x = 1, int y = 0, int z = 1)
+    public Quaternion ViewQ()
     {
-        return Quaternion.LookRotation(Vector3.Scale(View, new Vector3(x, y, z)), Vector3.up);
+        return Quaternion.LookRotation(Vector3.Scale(View, new Vector3(1, 0, 1)), Vector3.up);
     }
-    public virtual void TurnToView(int x = 1, int y = 0, int z = 1)
+    public virtual void TurnToView()
     {
 
-        player.transform.rotation = Quaternion.Slerp(player.transform.rotation, ViewQ(x, y, z), Time.deltaTime * 5);
+        player.transform.rotation = Quaternion.Slerp(player.transform.rotation, ViewQ(), Time.deltaTime * 5);
 
 
     }
 
 
-    public virtual void TurnAndGo(float speed, int x = 1, int y = 0, int z = 1)
+    public virtual void TurnAndGo(float speed)
     {
-        TurnToView(x, y, z);
+        TurnToView();
         GoOnlyForward(speed);
     }
 
@@ -145,21 +180,16 @@ public class PlayerActs : MonoBehaviour
     public virtual bool isVelo()
     {
 
-        return rg.velocity.magnitude > 0.01f;
+        return FinalVector.magnitude > 0.01f;
     }
 
-    public virtual void ResetWheelSpin(float timeScaleRWS = 4, float localRotX = 0f)
+    public virtual void ResetWheelSpin(float timeScaleRWS = 4)
     {
-        Armature.transform.localRotation = Quaternion.Lerp(Armature.transform.localRotation, Quaternion.Euler(localRotX, 0, 0), Time.deltaTime * timeScaleRWS);
+        Armature.transform.localRotation = Quaternion.Lerp(Armature.transform.localRotation, Quaternion.Euler(0, 0, 0), Time.deltaTime * timeScaleRWS);
 
     }
 
-    public virtual void Suzul()
-    {
-        //Armature.transform.rotation = Quaternion.Lerp(Armature.transform.rotation,Quaternion.LookRotation( -Vector3.up , rg.velocity), Time.deltaTime* 4);
-
-
-}
+  
 
 
 
@@ -181,8 +211,8 @@ public class PlayerActs : MonoBehaviour
 
     public virtual void SpinAsWheel(float spin=1f)
     {
-        float veloMagnitude = rg.velocity.magnitude;
-        float rotateAmount =  spin*veloMagnitude*Time.deltaTime ;
+        
+        float rotateAmount =  spin* FinalVector.magnitude * Time.deltaTime ;
         Armature.transform.Rotate(rotateAmount, 0, 0);
 
     }

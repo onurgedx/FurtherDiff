@@ -9,10 +9,12 @@ public  class PlayerAflight :  PlayerPostaci
     public float spinSpeed = 30f;
     
 
-    private void Update()
+    public override void Update()
     {
 
         Gravity();
+
+        base.Update();
         
         
 
@@ -25,7 +27,6 @@ public  class PlayerAflight :  PlayerPostaci
 
     public override void WASDatLeastOne()
     {
-        //TurnAndGo(speed,1,1,1);
 
        
 
@@ -37,7 +38,7 @@ public  class PlayerAflight :  PlayerPostaci
     {
         
 
-          //  setUpViewPoint();
+         
 
 
     }
@@ -47,19 +48,19 @@ public  class PlayerAflight :  PlayerPostaci
 
     public override void S()
     {
-        //setDownViewPoint();
+        
        
         
     }
 
     public override void A()
     {
-        setLeftViewPoint(10);
+        
     }
 
     public override void D()
     {
-        setRightViewPoint(10);
+        
     }
 
     public override void Space()

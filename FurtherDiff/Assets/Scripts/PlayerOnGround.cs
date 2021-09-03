@@ -11,6 +11,14 @@ public class PlayerOnGround : PlayerPostaci
     public float spinSpeed = 10f;
     public float jumpPower = 800f;
 
+
+
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        FinalVector = Vector3.Scale(FinalVector,new Vector3(1,Mathf.Sign(FinalVector.y)*0.1f, 1));
+
+    }
     public override void Space()
     {
 
@@ -20,6 +28,7 @@ public class PlayerOnGround : PlayerPostaci
         
 
     }
+    
     public override void SpaceNO()
     {
         CloseGlider();
